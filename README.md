@@ -11,6 +11,10 @@ L’obiettivo del progetto non è costruire un help desk completo, ma dimostrare
 
 
 <img width="1245" height="442" alt="image" src="https://github.com/user-attachments/assets/cea49ff9-1c9a-4224-a901-0675fe8064ab" />
+<img width="1847" height="827" alt="image" src="https://github.com/user-attachments/assets/7592275e-0098-4e7a-bb8d-94f45e8273f9" />
+<img width="1896" height="842" alt="image" src="https://github.com/user-attachments/assets/10459737-63fc-47ce-82b5-f689e5b210f2" />
+<img width="1866" height="828" alt="image" src="https://github.com/user-attachments/assets/ba809ac2-8a97-4576-8fc2-813b304161e0" />
+<img width="1902" height="823" alt="image" src="https://github.com/user-attachments/assets/502c9a73-899c-4960-9414-9dc81b9b4986" />
 
 ---
 
@@ -119,7 +123,6 @@ estendere in futuro il flusso con logiche aggiuntive
 Analisi dettagliata dei nodi
 1. Webhook
 
-<img width="1847" height="827" alt="image" src="https://github.com/user-attachments/assets/7592275e-0098-4e7a-bb8d-94f45e8273f9" />
 
 Ruolo del nodo
 
@@ -169,7 +172,7 @@ Il suo ruolo è di ingresso, non di trasformazione.
 
 2. Edit Fields (Prompt Builder)
 
-<img width="1896" height="842" alt="image" src="https://github.com/user-attachments/assets/10459737-63fc-47ce-82b5-f689e5b210f2" />
+
 
 Ruolo del nodo
 
@@ -228,7 +231,7 @@ In altre parole, questo nodo è una piccola fase di “traduzione” tra il mond
 
 3. HTTP Request (OpenAI API)
 
-<img width="1866" height="828" alt="image" src="https://github.com/user-attachments/assets/ba809ac2-8a97-4576-8fc2-813b304161e0" />
+
 
 Ruolo del nodo
 
@@ -291,7 +294,7 @@ Per questo motivo, l’HTTP Request verso OpenAI è il cuore del workflow.
 
 4. Edit Fields finale (Parser e normalizzazione)
 
-<img width="1902" height="823" alt="image" src="https://github.com/user-attachments/assets/502c9a73-899c-4960-9414-9dc81b9b4986" />
+
 
 
 Ruolo del nodo
