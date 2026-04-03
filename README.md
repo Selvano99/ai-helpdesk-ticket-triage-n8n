@@ -71,7 +71,6 @@ La scelta low-code è quindi coerente con l’obiettivo del progetto:
 
 Il flusso finale è composto da 4 nodi principali:
 
-```text
 Webhook → Edit Fields → HTTP Request → Edit Fields
 
 A livello logico, il workflow segue questo percorso:
