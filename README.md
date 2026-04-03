@@ -484,31 +484,3 @@ storico delle richieste analizzate
 
 La struttura a nodi separati facilita proprio questo tipo di evoluzione.
 
-Perché questo progetto è utile nel CV
-
-Questo workflow mostra competenze trasversali che stanno bene in ruoli come:
-
-supporto tecnico evoluto
-integrazione AI
-automation specialist
-pre-sales tecnico
-sistemista con approccio moderno ai workflow
-
-In particolare dimostra:
-
-capacità di ragionare per flussi
-integrazione di API esterne
-uso pratico di un LLM
-trasformazione di testo libero in output strutturato
-attenzione alla leggibilità del processo
-Repository contents
-workflow.json → esportazione del workflow n8n
-README.md → documentazione del progetto
-workflow.png → screenshot del flusso (opzionale)
-Conclusione
-
-Questo progetto mostra come, anche con un approccio low-code, sia possibile costruire un’integrazione AI concreta e utile.
-
-Il valore non sta nella complessità tecnica del singolo nodo, ma nella logica complessiva del workflow: partire da un problema scritto in linguaggio naturale e arrivare a una risposta strutturata, coerente e riutilizzabile.
-
-In altre parole, il workflow non si limita a “chiamare un modello”, ma organizza un piccolo processo decisionale che può diventare la base per automazioni più mature in ambito IT support e ticket triage.
