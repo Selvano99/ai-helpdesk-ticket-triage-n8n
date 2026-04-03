@@ -1,0 +1,186 @@
+{
+  "name": "Ticket Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analyze-ticket",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0ce72982-ecc3-419b-a21d-29cf425dcd00",
+      "name": "Webhook",
+      "webhookId": "598362c0-f1c7-45b7-b8a6-305b7ef32eaa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b2417f9-7b67-45c6-82d2-13405e917c22",
+              "name": "prompt",
+              "value": "=nalizza questo ticket IT e restituisci solo un JSON valido con questi campi: category, priority, possible_cause, first_steps, escalation.  Usa italiano. Priority ammessi: Bassa, Media, Alta, Critica.  Utente: {{$json.body.user}} Reparto: {{$json.body.department}} Problema: {{$json.body.issue}}",
+              "type": "string"
+            },
+            {
+              "id": "2105d564-c83f-4cf6-916f-04c96562da20",
+              "name": "system_prompt",
+              "value": "Sei un assistente help desk IT. Rispondi solo con JSON valido. Nessun testo extra. Nessun markdown.",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "4db61f43-02f5-40e6-a637-2487d7212615",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/responses",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "\"Authorization\": \"Bearer YOUR_OPENAI_API_KEY\""
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o\",\n  \"instructions\": \"{{$json.system_prompt}}\",\n  \"input\": \"{{$json.prompt}}\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_schema\",\n      \"name\": \"ticket_analysis\",\n      \"strict\": true,\n      \"schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"category\": { \"type\": \"string\" },\n          \"priority\": {\n            \"type\": \"string\",\n            \"enum\": [\"Bassa\", \"Media\", \"Alta\", \"Critica\"]\n          },\n          \"possible_cause\": { \"type\": \"string\" },\n          \"first_steps\": {\n            \"type\": \"array\",\n            \"items\": { \"type\": \"string\" }\n          },\n          \"escalation\": { \"type\": \"boolean\" }\n        },\n        \"required\": [\n          \"category\",\n          \"priority\",\n          \"possible_cause\",\n          \"first_steps\",\n          \"escalation\"\n        ],\n        \"additionalProperties\": false\n      }\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c079e581-ec74-4447-ba83-f4367bce0632",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2e34609c-cffa-466c-87ac-6a0cbfd78fab",
+              "name": "category",
+              "value": "={{ JSON.parse($json.output[0].content[0].text).category }}",
+              "type": "string"
+            },
+            {
+              "id": "0d7d76ff-06d5-42f9-bca0-657b4cda2331",
+              "name": "priority",
+              "value": "={{ JSON.parse($json.output[0].content[0].text).priority }}",
+              "type": "string"
+            },
+            {
+              "id": "d612eaf1-7f72-453a-866f-b54e0b41132d",
+              "name": "possible cause",
+              "value": "={{ JSON.parse($json.output[0].content[0].text).possible_cause }}",
+              "type": "string"
+            },
+            {
+              "id": "7f143782-2fbd-41db-926b-ad2e1a986cf5",
+              "name": "first_steps",
+              "value": "={{ JSON.parse($json.output[0].content[0].text).first_steps }}",
+              "type": "array"
+            },
+            {
+              "id": "3a9f2890-8cd4-4d04-85f0-f83fe07d1b86",
+              "name": "escalation",
+              "value": "={{ JSON.parse($json.output[0].content[0].text).escalation }}",
+              "type": "boolean"
+            },
+            {
+              "id": "e56d29c2-f9bc-46bb-aa85-e2da39a88fd0",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "fc52cc78-d1af-427f-a870-f08050d5b1d9",
+      "name": "Edit Fields1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "4c662b04-3480-48c3-b187-e5d0db0fbf96",
+  "meta": {
+    "instanceId": "b1124296c6c1d4403c636c5ed2b32b37878e8da4fb3ae26758c9322b33010be4"
+  },
+  "id": "ylaMKC4STflVhozF",
+  "tags": [
+    {
+      "updatedAt": "2026-04-03T09:50:46.241Z",
+      "createdAt": "2026-04-03T09:50:46.241Z",
+      "id": "pbO5MU8BtQJ2AHR4",
+      "name": "AI Ticket Triage Workflo"
+    }
+  ]
+}
