@@ -8,6 +8,10 @@ Workflow low-code realizzato in **n8n** per analizzare richieste di supporto IT 
 
 L’obiettivo del progetto non è costruire un help desk completo, ma dimostrare in modo semplice e credibile come un workflow low-code possa ricevere un problema tecnico in linguaggio naturale, inviarlo a un modello AI e restituire un risultato già pronto per essere usato in processi di triage, assistenza di primo livello o future integrazioni con sistemi di ticketing.
 
+
+
+<img width="1245" height="442" alt="image" src="https://github.com/user-attachments/assets/cea49ff9-1c9a-4224-a901-0675fe8064ab" />
+
 ---
 
 ## Obiettivo del progetto
@@ -114,6 +118,9 @@ spiegare il progetto a un recruiter o a un collega
 estendere in futuro il flusso con logiche aggiuntive
 Analisi dettagliata dei nodi
 1. Webhook
+
+<img width="1847" height="827" alt="image" src="https://github.com/user-attachments/assets/7592275e-0098-4e7a-bb8d-94f45e8273f9" />
+
 Ruolo del nodo
 
 Il Webhook è il punto di ingresso del workflow.
@@ -144,6 +151,9 @@ Il nodo riceve un JSON simile a questo:
   "department": "Amministrazione",
   "issue": "Non riesco ad accedere alla VPN e Outlook non sincronizza le email"
 }
+
+<img width="1907" height="852" alt="image" src="https://github.com/user-attachments/assets/4dc96eb8-bdb1-4983-a1a7-82f28d8e10f1" />
+
 Cosa fa davvero
 
 Il Webhook non analizza il ticket e non prende decisioni.
@@ -158,6 +168,9 @@ Abbiamo deciso di non fare elaborazione qui dentro perché il Webhook deve resta
 Il suo ruolo è di ingresso, non di trasformazione.
 
 2. Edit Fields (Prompt Builder)
+
+<img width="1896" height="842" alt="image" src="https://github.com/user-attachments/assets/10459737-63fc-47ce-82b5-f689e5b210f2" />
+
 Ruolo del nodo
 
 Questo nodo prende i dati in ingresso dal Webhook e costruisce i campi che servono al modello AI.
@@ -214,6 +227,9 @@ eventuali modifiche al prompt possono essere fatte senza toccare il resto del wo
 In altre parole, questo nodo è una piccola fase di “traduzione” tra il mondo dell’input utente e il mondo della richiesta al modello.
 
 3. HTTP Request (OpenAI API)
+
+<img width="1866" height="828" alt="image" src="https://github.com/user-attachments/assets/ba809ac2-8a97-4576-8fc2-813b304161e0" />
+
 Ruolo del nodo
 
 Questo è il nodo centrale del progetto, cioè quello che fornisce l’intelligenza del sistema.
@@ -274,6 +290,10 @@ dopo questo nodo abbiamo già una classificazione ragionata
 Per questo motivo, l’HTTP Request verso OpenAI è il cuore del workflow.
 
 4. Edit Fields finale (Parser e normalizzazione)
+
+<img width="1902" height="823" alt="image" src="https://github.com/user-attachments/assets/502c9a73-899c-4960-9414-9dc81b9b4986" />
+
+
 Ruolo del nodo
 
 Il secondo nodo Edit Fields serve a prendere la risposta restituita da OpenAI e trasformarla nel formato finale desiderato.
